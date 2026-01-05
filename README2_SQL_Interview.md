@@ -101,3 +101,15 @@ Q8: explain normalization and briefly describe the different normal forms.
 - Eliminates join dependencies
 - Ensures tables can be losslessly joined without generating spurious tuples
 - Used in highly complex database designs
+---
+Q9: what is the difference between UNION and UNION ALL?
+- **Union :** combines the results from two or more selects and removes duplicates. It performs a distinct across all columns.
+- **Union all** keeps duplicates and usually runs faster because it simply appends result sets. 
+---
+Q10: what is  pattern matching in SQL ?
+- Pattern matching in SQL is used to search text data based on specific patterns rather than exact values.
+- 🔹 Using LIKE / NOT LIKE
+- SQL supports pattern matching mainly with LIKE (and NOT LIKE) using wildcards:
+- <img width="511" height="539" alt="image" src="https://github.com/user-attachments/assets/2957905d-2e94-48b1-935b-c80e105fdf3f" />
+
+
