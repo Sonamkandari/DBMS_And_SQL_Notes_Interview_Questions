@@ -199,3 +199,132 @@ LEFT JOIN projects p
   ON p.emp_id = e.emp_id
 WHERE p.emp_id IS NULL;
 ```
+---
+Q14: 17. Explain the difference between RANK(), DENSE_RANK() and ROW_NUMBER()
+- **1️⃣ ROW_NUMBER()**
+- What it does
+- Assigns a unique number to each row
+- No ties, even if values are same
+- **Rule**
+- Every row gets a different number
+```
+SELECT name, marks,
+ROW_NUMBER() OVER (ORDER BY marks DESC) AS rn
+FROM students;
+
+```
+- **2️⃣ RANK()**
+- What it does
+- Gives same rank to same values
+- Skips numbers after a tie
+- **Rule**
+- Same value → same rank
+- Next rank is skipped
+```
+SELECT name, marks,
+RANK() OVER (ORDER BY marks DESC) AS rnk
+FROM students;
+
+```
+- **3️⃣ DENSE_RANK()**
+- What it does
+- Gives same rank to same values
+- Does NOT skip numbers
+- **Rule**
+- Same value → same rank
+- Next rank is continuous
+
+   ```
+  SELECT name, marks,
+  DENSE_RANK() OVER (ORDER BY marks DESC) AS drnk
+  FROM students;
+
+  ```
+---
+<img width="403" height="596" alt="image" src="https://github.com/user-attachments/assets/aa9d8763-15d6-441a-b421-be43beda03f4" />
+
+---
+Q15: Explain the purpose of LAG and LEAD functions
+
+- Purpose of LAG() and LEAD() Functions
+- **What are they?**
+- **LAG()** and **LEAD()** are SQL window (analytic) functions used to access values from another row without using joins or subqueries.
+- They help compare the current row with a previous or next row.
+- **Simple Meaning (Beginner Level)** 
+
+- **LAG() →** look at the previous row
+- **LEAD() →** look at the next row
+---
+
+<img width="578" height="597" alt="image" src="https://github.com/user-attachments/assets/cfc5896d-f93d-48e4-8c06-fe713a58c592" />
+
+---
+Q16:  Describe set operations like UNION, INTERSECT and EXCEPT and when each is useful
+
+- UNION, INTERSECT, and EXCEPT are SQL set operations that combine results from two queries with the same number of columns and compatible data types. UNION returns the distinct union of both result sets (removes duplicates).
+
+- Use it to merge similar data from multiple sources
+- **INTERSECT** returns only rows common to both queries—ideal for finding overlap.
+- **EXCEPT** (called MINUS in Oracle) returns rows in the first query that aren’t in the second
+
+---
+Q17: What are the main types of SQL commands?
+- **DDL** (Data Definition Language): CREATE, ALTER, DROP, TRUNCATE.
+- **DML** (Data Manipulation Language): SELECT, INSERT, UPDATE, DELETE.
+- **DCL** (Data Control Language): GRANT, REVOKE.
+- **TCL** (Transaction Control Language): COMMIT, ROLLBACK, SAVEPOINT.
+---
+Q18: What is the purpose of the DEFAULT constraint?
+- The DEFAULT constraint assigns a default value to a column when no value is provided during an INSERT operation. This helps maintain consistent data and simplifies data entry.
+
+---
+Q19: What is denormalizationdenormalization, and when is it used?
+- Denormalization is the process of intentionally adding redundancy to a database by combining tables or duplicating data.
+
+- **Why Do We Use Denormalization?**
+- To reduce the number of JOINs
+- To speed up read-heavy queries
+- To improve query performance
+- To simplify reporting and analytics
+```
+-- Normalized Design
+Orders(order_id, customer_id)
+Customers(customer_id, customer_name)
+-- Denormalized Design
+Orders(order_id, customer_id, customer_name)
+
+```
+- When Is Denormalization Used?
+- Read-heavy systems (reports, dashboards)
+- Data warehouses
+- Analytics systems
+- When performance is more important than storage
+---
+<img width="562" height="528" alt="image" src="https://github.com/user-attachments/assets/f4534896-9c70-4269-b7d3-57998faec1af" />
+
+---
+Q20: What is the purpose of the GROUP BY clause?
+- The GROUP BY clause is used to arrange identical data into groups. It is typically used with aggregate functions (such as COUNT, SUM, AVG) to perform calculations on each group rather than on the entire dataset.
+---
+Q21: What are the different types of joins in SQL?
+
+- **INNER JOIN:** Returns rows that have matching values in both tables.
+- **LEFT JOIN (LEFT OUTER JOIN):** Returns all rows from the left table, and matching rows from the right table.
+- **RIGHT JOIN (RIGHT OUTER JOIN):** Returns all rows from the right table, and matching rows from the left table.
+- **FULL JOIN (FULL OUTER JOIN):** Returns all rows when there is a match in either table.
+- **CROSS JOIN:** Produces the Cartesian product of two tables.
+- **SELF JOIN:** A table joined with itself, often used for hierarchical data.
+
+---
+Q22: What are indexes, and why are they used?
+- Indexes are database objects that improve query performance by allowing faster retrieval of rows. They function like a book’s index, making it quicker to find specific data without scanning the entire table. However, indexes require additional storage and can slightly slow down data modification operations. Types of Indexes:
+- Clustered Index: Sorts and stores data rows in order of the key (only one per table).
+- Non-Clustered Index: Separate structure with pointers to data rows (can be many per table).
+- Unique Index: Ensures no duplicate values.
+- Composite Index: Index on multiple columns.
+---
+Q23: What is a trigger in SQL?
+- A trigger is a set of SQL statements that automatically execute in response to certain events on a table, such as INSERT, UPDATE, or DELETE. Triggers help maintain data consistency, enforce business rules, and implement complex integrity constraints.
+- **Types:** BEFORE or AFTER triggers (depending on DB).
+- **Uses:** Enforce business rules, maintain audit logs, check data consistency.
+
